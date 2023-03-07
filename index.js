@@ -1,8 +1,26 @@
+require('dotenv').config()
 const http = require('http')
 const express = require('express')
 const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
+const mongoose = require('mongoose')
+const Name = require(.'models/Name')
+
+const url =
+  `mongodb+srv://fullstack:${password}@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url)
+
+const nameSchema = new mongoose.Schema({
+  phoneName: String,
+  phoneNumber: String,
+})
+
+
+const Name = mongoose.model('Name', nameSchema)
+
 
 //const requestLogger = (request, response, next) => {
 //  console.log('Method:', request.method)
@@ -82,18 +100,15 @@ app.get('/api/info', (request, response) => {
 
 
 app.get('/api/persons', (request, response) => {
-	response.json(persons)
+	Name.find({}).then((nume) => {
+		response.json(nume)
+		})
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const single = persons.find((single) => single.id === id)
-  
-  if (single) {
-    response.json(single)
-  } else {
-    response.status(404).end()
-  }
+  Name.findById(request.params.id).then((izen)=> {
+  	response.json(izen)
+  	})
 })
 
 
@@ -141,7 +156,7 @@ app.post('/api/persons', (request, response) => {
   response.json(personal)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
