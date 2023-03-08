@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const Name = require('.model/Name')
 
 const url =
-  `mongodb+srv://fullstack:${password}@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://fullstack:memyselfi@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
