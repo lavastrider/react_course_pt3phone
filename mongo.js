@@ -13,7 +13,13 @@ const url =
   `mongodb+srv://fullstack:${password}@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.set('strictQuery',false)
-mongoose.connect(url).catch( (error) => {console.log('we did not connect')})
+mongoose.connect(url)
+	.then((result) => {
+		console.log('connected to MongoDB')
+	})
+	.catch((error) => {
+		console.log('error connecting to MongoDb', error.message)
+	})
 
 const nameSchema = new mongoose.Schema({
   phoneName: String,

@@ -7,15 +7,6 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const Name = require('./model/Name')
 
-const url =
-  `mongodb+srv://fullstack:memyselfi@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
-
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
-	
-
-const Names = mongoose.model('Name', nameSchema)
-
 
 //const requestLogger = (request, response, next) => {
 //  console.log('Method:', request.method)
