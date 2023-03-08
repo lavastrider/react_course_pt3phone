@@ -19,7 +19,7 @@ const nameSchema = new mongoose.Schema({
 })
 
 
-const Name = mongoose.model('Name', nameSchema)
+const Names = mongoose.model('Name', nameSchema)
 
 
 //const requestLogger = (request, response, next) => {
