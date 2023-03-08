@@ -9,8 +9,7 @@ const password = process.argv[2]
 const entryName = process.argv[3]
 const entryNumber = process.argv[4]
 	
-const url =
-  `mongodb+srv://fullstack:${password}@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
+const url = process.env.MONGODB_URI
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
