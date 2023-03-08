@@ -44,7 +44,6 @@ if (process.argv.length == 3) {
 	Name.find({}).then(result => {
 	  result.forEach(izen => {
 	    console.log(`${izen.phoneName} ${izen.phoneNumber}`)
-	    console.log('these are the results')
 	  })
 	  mongoose.connection.close()
 	})

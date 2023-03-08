@@ -49,23 +49,23 @@ app.use(cors())
 let persons = [
     { 
       "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
+      "phoneName": "Arto Hellas", 
+      "phoneNumber": "040-123456"
     },
     { 
       "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
+      "phoneName": "Ada Lovelace", 
+      "phoneNumber": "39-44-5323523"
     },
     { 
       "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
+      "phoneName": "Dan Abramov", 
+      "phoneNumber": "12-43-234345"
     },
     { 
       "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
+      "phoneName": "Mary Poppendieck", 
+      "phoneNumber": "39-23-6423122"
     }
 ]
 
@@ -114,17 +114,17 @@ const generateId = () => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if (!body.name || !body.number) {
+  if (!body.phoneName || !body.phoneNumber) {
     return response.status(400).json({ 
       error: 'no name or number provided' 
     })
   }
   
-  console.log(persons.filter((nomen) => nomen.name===body.name), 'is the persons filter test')
-  console.log(body.name, 'is body name')
+//  console.log(persons.filter((nomen) => nomen.name===body.name), 'is the persons filter test')
+//  console.log(body.phoneName, 'is body name')
  
   
- if (persons.filter((nomen) => nomen.name===body.name).length === 1) {
+ if (persons.filter((nomen) => nomen.phoneName===body.phoneName).length === 1) {
 	console.log('we found a match') 
   	return response.status(400).json({
  		error: 'that name already exists'
@@ -132,8 +132,8 @@ app.post('/api/persons', (request, response) => {
   }
 
   const personal = {
-    name: body.name,
-    number: body.number,
+    phoneName: body.phoneName,
+    phoneNumber: body.phoneNumber,
     id: generateId(),
   }
 
