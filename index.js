@@ -5,7 +5,7 @@ const app = express()
 var morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const Name = require(.'models/Name')
+const Name = require('.models/Name')
 
 const url =
   `mongodb+srv://fullstack:${password}@phonebook.af4bf3f.mongodb.net/?retryWrites=true&w=majority`
