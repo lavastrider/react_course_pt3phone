@@ -12,12 +12,7 @@ const url =
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
-
-const nameSchema = new mongoose.Schema({
-  phoneName: String,
-  phoneNumber: String,
-})
-
+	
 
 const Names = mongoose.model('Name', nameSchema)
 
