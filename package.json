@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+"lint": "eslint ."
   },
   "author": "merms",
   "license": "MIT",
@@ -20,6 +21,7 @@
     "node": "^19.6.1"
   },
   "devDependencies": {
+    "eslint": "^8.35.0",
     "nodemon": "^2.0.21"
   }
 }

@@ -16,22 +16,22 @@ mongoose.connect(url)
 
 const nameSchema = new mongoose.Schema({
   phoneName: {
-  	type: String,
-  	minLength: [3, 'The name must be at least 3 letters'],
-  	required: true
+    type: String,
+    minLength: [3, 'The name must be at least 3 letters'],
+    required: true
   },
   phoneNumber: {
-  	type: String,
-  	minLength: [8, 'The number must be at least 8 numbers'],
-  	validate: {
-  		validator: function (pN) {
-  			if (pN.includes('-')) {
-  				return /\d{2}-\d+|\d{3}-\d+/.test(pN)
-  			}
-  		},
-  		message: 'This is not a valid format'
-  	},
-  	required: true
+    type: String,
+    minLength: [8, 'The number must be at least 8 numbers'],
+    validate: {
+      validator: function (pN) {
+        if (pN.includes('-')) {
+          return /\d{2}-\d+|\d{3}-\d+/.test(pN)
+        }
+      },
+      message: 'This is not a valid format'
+    },
+    required: true
   }
 })
 
