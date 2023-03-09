@@ -10,11 +10,12 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
-let persons = [
+//let persons = [
+//
+//]
 
-]
-
-morgan.token('data', function stringData (request, response) { return JSON.stringify(request.body)})
+morgan.token('data', function stringData (request) { return JSON.stringify(request.body)})
+//morgan.token('data', function stringData (request, response) { return JSON.stringify(request.body)})
 //morgan.token('type', function stringData (request, response) { return request.headers['content-type']})
 
 app.use(morgan(function tokenPost(tokens, request, response) {
@@ -75,7 +76,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Name.findByIdAndRemove(request.params.id)
-    .then((result) => {
+    .then(() => {
       response.status(204).end()
     })
     .catch((error) => next(error))
