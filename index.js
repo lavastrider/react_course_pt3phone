@@ -32,7 +32,7 @@ app.use(morgan(function tokenPost(tokens, request, response) {
 
 app.get('/api/info', (request, response) => {
 	console.log(Name.length, 'is Name length')
-	console.log(db.collection.count(), 'is db collection count')
+//	console.log(db.collection.count(), 'is db collection count')
 	const amt = String(Name.length)
 	const date = new Date()
 	
