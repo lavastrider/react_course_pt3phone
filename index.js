@@ -125,8 +125,10 @@ app.put('/api/persons/:id', (request, response, next) => {
 		phoneName: body.phoneName,
 		phoneNumber: body.phoneNumber,
 	}
+	
+	console.log(request.params.id, 'is request params id')
 
-	Name.findByIdAndUpdate(mongoose.Types.ObjectId(request.params.id), personal, {new: true} )
+	Name.findByIdAndUpdate(request.params.id, personal, {new: true} )
 		.then((updatedEntry) => {
 			response.json(updatedEntry)
 		})
