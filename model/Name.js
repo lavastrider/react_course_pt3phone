@@ -22,7 +22,15 @@ const nameSchema = new mongoose.Schema({
   },
   phoneNumber: {
   	type: String,
-  	minLength: 8,
+  	minLength: [8, 'The number must be at least 8 numbers'],
+  	validate: {
+  		validator: function (pN) {
+  			if (pN.includes('-')) {
+  				return /\d{3}-\d{7}/.test(pN)
+  			}
+  		},
+  		message: 'This is not a valid format'
+  	},
   	required: true
   }
 })
