@@ -17,7 +17,7 @@ mongoose.connect(url)
 const nameSchema = new mongoose.Schema({
   phoneName: {
   	type: String,
-  	minLength: 2,
+  	minLength: [3, 'The name must be at least 3 letters'],
   	required: true
   },
   phoneNumber: {
