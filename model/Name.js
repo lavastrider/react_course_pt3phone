@@ -28,6 +28,9 @@ const nameSchema = new mongoose.Schema({
         if (pN.includes('-')) {
           return /\d{2}-\d+|\d{3}-\d+/.test(pN)
         }
+        else {
+        	return /\d{8,}/.test(pN)
+        }
       },
       message: 'This is not a valid format'
     },
