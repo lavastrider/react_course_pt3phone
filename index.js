@@ -92,14 +92,14 @@ const generateId = () => {
   return ident
 }
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  if (!body.phoneName || !body.phoneNumber) {
-    return response.status(400).json({ 
-      error: 'no name or number provided' 
-    })
-  }
+//  if (!body.phoneName || !body.phoneNumber) {
+//    return response.status(400).json({ 
+//      error: 'no name or number provided' 
+//    })
+//  }
   
 //  console.log(persons.filter((nomen) => nomen.name===body.name), 'is the persons filter test')
 //  console.log(body.phoneName, 'is body name')
@@ -119,25 +119,27 @@ app.post('/api/persons', (request, response) => {
   })
 	
 	
-	personal.save().then((savedEntry) => {
+	personal.save()
+		.then((savedEntry) => {
 		response.json(savedEntry)
 	})
+	.catch((error) => next(error))
 //  persons = persons.concat(personal)
 
 //  response.json(personal)
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
-	const body = request.body
+	const {phoneName, phoneNumber} = request.body
 	
-	const personal = {
-		phoneName: body.phoneName,
-		phoneNumber: body.phoneNumber,
-	}
+//	const personal = {
+//		phoneName: body.phoneName,
+//		phoneNumber: body.phoneNumber,
+//	}
 	
 	console.log(request.params.id, 'is request params id')
 
-	Name.findByIdAndUpdate(request.params.id, personal, {new: true} )
+	Name.findByIdAndUpdate(request.params.id, {phoneName, phoneNumber}, {new: true, runValidators: true, context: 'query'} )
 		.then((updatedEntry) => {
 			response.json(updatedEntry)
 		})
@@ -153,6 +155,8 @@ const errorHandler = (error, request, response, next) => {
 	
 	if (error.name === 'CastError') {
 		return response.status(400).send({ error: 'malformatted id' })
+	} else if (error.name === 'ValidationError') {
+		return response.status(400).json({ error: error message })
 	}
 	
 	next(error)
