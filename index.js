@@ -29,8 +29,9 @@ app.use(morgan(function tokenPost(tokens, request, response) {
 		].join(' ')
 })) 
 
+const date = new Date()
 
-app.get('/api/info', (request, response) => {
+app.get('/api/info', async (request, response) => {
 //	console.log(Name.length, 'is Name length') <- outputs as 3
 //	console.log(db.collection.count(), 'is db collection count') <- outputs as db undefined
 //	console.log(db.test.count(), 'is db collection count') <- db is undefined
@@ -40,7 +41,7 @@ app.get('/api/info', (request, response) => {
 //	console.log(Name.names.countDocuments().length, 'is name names countdocuments length')
 
 	const amt = await Name.countDocuments({})
-	const date = new Date()
+//	const date = new Date()
 	
 	console.log(typeof date, 'is date type')
 	
