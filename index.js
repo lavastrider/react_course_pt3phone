@@ -124,7 +124,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 	const personal = {
 		phoneName: body.phoneName,
 		phoneNumber: body.phoneNumber,
-	)
+	}
 
 	Name.findByIdAndUpdate(request.params.id, personal, {new: true} )
 		.then((updatedEntry) => {
