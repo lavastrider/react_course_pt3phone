@@ -35,7 +35,8 @@ app.get('/api/info', (request, response) => {
 //	console.log(db.collection.count(), 'is db collection count') <- outputs as db undefined
 //	console.log(db.test.count(), 'is db collection count') <- db is undefined
 
-	console.log(test.names.countDocuments(), 'is test names countdocuments')
+	console.log(Name.countDocuments(), 'is names countdocuments')
+	console.log(Name.count(), 'is name count')
 
 	const amt = String(Name.length)
 	const date = new Date()
