@@ -7,14 +7,9 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const Name = require('./model/Name')
 
-
-//const requestLogger = (request, response, next) => {
-//  console.log('Method:', request.method)
-//  console.log('Path:  ', request.path)
-//  console.log('Body:  ', request.body)
-//  console.log('---')
-//  next()
-//}
+app.use(express.static('build'))
+app.use(express.json())
+app.use(cors())
 
 morgan.token('data', function stringData (request, response) { return JSON.stringify(request.body)})
 //morgan.token('type', function stringData (request, response) { return request.headers['content-type']})
@@ -30,45 +25,6 @@ app.use(morgan(function tokenPost(tokens, request, response) {
 		].join(' ')
 })) 
 
-
-const requestLogMorg = (request, response, next, testing) => {
-	morgan('tiny')
-	morgan.token(testing)
-	next()
-}
-
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
-}
-
-app.use(express.json())
-app.use(cors())
-app.use(express.static('build'))
-//app.use(requestLogger)
-//app.use(requestLogMorg)
-
-let persons = [
-    { 
-      "id": 1,
-      "phoneName": "Arto Hellas", 
-      "phoneNumber": "040-123456"
-    },
-    { 
-      "id": 2,
-      "phoneName": "Ada Lovelace", 
-      "phoneNumber": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "phoneName": "Dan Abramov", 
-      "phoneNumber": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "phoneName": "Mary Poppendieck", 
-      "phoneNumber": "39-23-6423122"
-    }
-]
 
 app.get('/api/info', (request, response) => {
 	const amt = String(persons.length)
@@ -92,18 +48,29 @@ app.get('/api/persons', (request, response) => {
 		})
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
   Name.findById(request.params.id).then((izen)=> {
-  	response.json(izen)
+  	if (izen) {
+  		response.json(izen)
+  	} else {
+  		response.status(404).end()
+  	}
+  	})
+  	.catch((error) => next(error))
   	})
 })
 
 
 app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter((indiv) => indiv.id !== id)
+	Name.findByIdAndRemove(request.params.id)
+		.then((result) => {
+			response.status(204).end()
+		})
+		.catch((error) => next(error))
+//  const id = Number(request.params.id)
+// persons = persons.filter((indiv) => indiv.id !== id)
 
-  response.status(204).end()
+//  response.status(204).end()
 })
 
 const generateId = () => {
@@ -146,6 +113,22 @@ app.post('/api/persons', (request, response) => {
 
 //  response.json(personal)
 })
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+const errorHandler = (error, request, response, next) => {
+	console.error(error.message)
+	
+	if (error.name === 'CastError') {
+		return response.status(400).send({ error: 'malformatted id' })
+	}
+	
+	next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
