@@ -11,6 +11,11 @@ app.use(express.static('build'))
 app.use(express.json())
 app.use(cors())
 
+let persons = [
+
+
+]
+
 morgan.token('data', function stringData (request, response) { return JSON.stringify(request.body)})
 //morgan.token('type', function stringData (request, response) { return request.headers['content-type']})
 
