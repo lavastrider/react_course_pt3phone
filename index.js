@@ -39,7 +39,7 @@ app.get('/api/info', (request, response) => {
 //	console.log(Name.countDocuments().map((collect) => collect.collectionName === "names"), 'is names countdocuments map collect collectionname equals names')
 //	console.log(Name.names.countDocuments().length, 'is name names countdocuments length')
 
-	const amt = Name.countDocuments({})
+	const amt = await Name.countDocuments({})
 	const date = new Date()
 	
 	console.log(typeof date, 'is date type')
