@@ -31,9 +31,7 @@ app.use(morgan(function tokenPost(tokens, request, response) {
 
 
 app.get('/api/info', (request, response) => {
-	console.log(request, 'is request')
-	console.log(response, 'is response')
-	const amt = String(persons.length)
+	const amt = String(Name.length)
 	const date = new Date()
 	
 	console.log(typeof date, 'is date type')
