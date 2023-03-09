@@ -57,8 +57,8 @@ app.get('/api/persons/:id', (request, response, next) => {
   	}
   	})
   	.catch((error) => next(error))
-  	})
-})
+ })
+
 
 
 app.delete('/api/persons/:id', (request, response) => {
