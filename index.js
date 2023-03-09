@@ -129,6 +129,8 @@ app.post('/api/persons', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const { phoneName, phoneNumber } = request.body
+  console.log(phoneName, 'is phoneName')
+  console.log(phoneNumber, 'is phoneNumber')
 
   //	const personal = {
   //		phoneName: body.phoneName,
