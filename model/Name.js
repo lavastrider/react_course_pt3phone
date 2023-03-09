@@ -26,7 +26,7 @@ const nameSchema = new mongoose.Schema({
   	validate: {
   		validator: function (pN) {
   			if (pN.includes('-')) {
-  				return /\d{3}-\d{7}/.test(pN)
+  				return /\d{2}-\d+|\d{3}-\d+/.test(pN)
   			}
   		},
   		message: 'This is not a valid format'
