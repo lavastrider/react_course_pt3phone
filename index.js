@@ -13,7 +13,6 @@ app.use(cors())
 
 let persons = [
 
-
 ]
 
 morgan.token('data', function stringData (request, response) { return JSON.stringify(request.body)})
@@ -97,12 +96,12 @@ app.post('/api/persons', (request, response) => {
 //  console.log(body.phoneName, 'is body name')
  
   
- if (persons.filter((nomen) => nomen.phoneName===body.phoneName).length === 1) {
-	console.log('we found a match') 
-  	return response.status(400).json({
- 		error: 'that name already exists'
-  	})
-  }
+// if (persons.filter((nomen) => nomen.phoneName===body.phoneName).length === 1) {
+//	console.log('we found a match') 
+//  	return response.status(400).json({
+// 		error: 'that name already exists'
+//  	})
+//  }
 
   const personal = new Name({
     phoneName: body.phoneName,
@@ -117,6 +116,21 @@ app.post('/api/persons', (request, response) => {
 //  persons = persons.concat(personal)
 
 //  response.json(personal)
+})
+
+app.put('/api/persons/:id', (request, response, next) => {
+	const body = request.body
+	
+	const personal = {
+		phoneName: body.phoneName,
+		phoneNumber: body.phoneNumber,
+	)
+
+	Name.findByIdAndUpdate(request.params.id, personal, {new: true} )
+		.then((updatedEntry) => {
+			response.json(updatedEntry)
+		})
+		.catch((error) => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
